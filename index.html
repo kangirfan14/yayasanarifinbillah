@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="icon" type="image/png" href="LOGO YAYASAN_20240220_153932_0000.png" />
+    <title>YAYASAN PENDIDIKAN ARIFIN BILLAH</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @keyframes shine {
+        0% {
+          background-position: -200% 0;
+        }
+        100% {
+          background-position: 200% 0;
+        }
+      }
+      .shine-logo {
+        position: relative;
+        overflow: hidden;
+      }
+      .shine-logo::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -150%;
+        width: 150%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        );
+        animation: shine 3s infinite linear;
+      }
+      ::-webkit-scrollbar {
+        width: 5px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f5f9;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white"
+  >
+    <!-- TOP HEADER -->
+    <header
+      class="px-4 sm:px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-3 border-b border-slate-200 bg-white shadow-sm sticky top-0 z-50"
+    >
+      <div
+        class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-start"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            id="pub-logo-container"
+            class="w-11 h-11 rounded-full flex items-center justify-center overflow-hidden shrink-0 shine-logo bg-transparent"
+          >
+            <i class="fa-solid fa-mosque text-blue-600 text-lg"></i>
+          </div>
+          <div>
+            <h1
+              id="pub-foundation-name"
+              class="font-bold text-sm sm:text-base md:text-lg tracking-wide text-slate-900 uppercase leading-tight"
+            >
+              YAYASAN PENDIDIKAN ARIFIN BILAH
+            </h1>
+            <p class="text-[11px] text-slate-500 font-medium">
+              Pantau Dari Mana Saja
+            </p>
+          </div>
+        </div>
+        <!-- Jam versi mobile di pojok kanan atas bar -->
+        <div class="block sm:hidden text-right">
+          <div
+            id="live-clock-mobile"
+            class="text-lg font-mono font-bold text-blue-600 leading-none"
+          >
+            00.00.00
+          </div>
+          <div id="live-date-mobile" class="text-[10px] text-slate-500 mt-0.5">
+            ...
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Clock & Date versi Desktop -->
+      <div class="hidden sm:block text-right">
+        <div
+          id="live-clock"
+          class="text-2xl font-mono font-bold text-blue-600 tracking-wider"
+        >
+          00.00.00
+        </div>
+        <div id="live-date" class="text-xs text-slate-500 font-medium">
+          Memuat tanggal...
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main
+      class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 my-auto flex items-center justify-center"
+    >
+      <!-- KONDISI KETIKA TIDAK ADA ACARA YANG DIPUBLIKASIKAN -->
+      <div
+        id="no-event-container"
+        class="w-full bg-white border border-slate-200/80 rounded-2xl p-8 sm:p-16 shadow-sm text-center flex flex-col items-center justify-center gap-3"
+      >
+        <div
+          class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl shadow-inner mb-2"
+        >
+          <i class="fa-solid fa-calendar-xmark"></i>
+        </div>
+        <h2
+          class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight"
+        >
+          Tidak ada info untuk sekarang
+        </h2>
+        <p
+          class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed"
+        >
+          Belum ada kegiatan yang sedang dipublikasikan
+          saat ini. Silakan kunjungi halaman ini kembali nanti.
+        </p>
+      </div>
+
+      <!-- KONDISI KETIKA ADA ACARA YANG DIPUBLIKASIKAN (GRID UTAMA) -->
+      <div
+        id="active-event-container"
+        class="w-full grid grid-cols-1 lg:grid-cols-3 gap-6 items-start hidden"
+      >
+        <!-- LEFT COLUMN (Acara & Estimasi Tamu) -->
+        <div class="lg:col-span-2 flex flex-col gap-6">
+          <!-- ACARA YANG BERLANGSUNG -->
+          <div
+            class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 shadow-sm relative overflow-hidden transition-all"
+          >
+            <h2
+              class="text-xs font-bold uppercase tracking-wider text-blue-600 mb-3 flex items-center gap-2"
+            >
+                
+            </h2>
+            <div id="pub-event-box">
+              <!-- Diisi dinamis via JS -->
+            </div>
+          </div>
+
+          <!-- ESTIMASI TOTAL TAMU HADIR -->
+          <div
+            class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 shadow-sm relative overflow-hidden"
+          >
+            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-blue-600"></div>
+            <h2
+              class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2"
+            >
+              Estimasi Total Tamu Hadir
+            </h2>
+            <div
+              class="text-4xl sm:text-5xl md:text-6xl font-black text-slate-800 tracking-tight"
+              id="pub-total-guests"
+            >
+              0
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: DATA TAMU TERBARU (Nama & Total Rombongan Saja) -->
+        <div
+          class="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col h-[420px] sm:h-[480px] lg:h-[530px]"
+        >
+          <h2
+            class="text-sm font-bold text-slate-800 border-b border-slate-100 pb-3 mb-4 flex items-center justify-between shrink-0"
+          >
+            <span>Data Tamu Terbaru</span>
+            <span
+              class="text-xs bg-blue-50 text-blue-600 px-2.5 py-0.5 rounded-full font-semibold"
+              >Live Preview</span
+            >
+          </h2>
+          <div
+            id="pub-recent-guests"
+            class="flex-1 overflow-y-auto space-y-3 pr-1 text-sm text-slate-700"
+          >
+            <!-- Diisi dinamis via JS -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER DENGAN NUANSA BIRU & WAVE HALUS -->
+    <footer
+      class="relative bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 text-white mt-12 shadow-inner"
+    >
+      <!-- Dekorasi Gelombang SVG yang Proporsional & Halus -->
+      <div
+        class="absolute top-0 left-0 right-0 overflow-hidden leading-none -translate-y-[99%] pointer-events-none"
+      >
+        <svg
+          class="relative block w-full h-6 sm:h-10 text-blue-900"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,32L60,42.7C120,53,240,75,360,80C480,85,600,75,720,64C840,53,960,43,1080,48C1140,53,1200,75,1260,85.3L1320,96L1320,120L1260,120C1200,120,1080,120,960,120C840,120,720,120,600,120C480,120,360,120,240,120C120,120,60,120,30,120L0,120Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </div>
+
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+      >
+        <div class="space-y-3">
+          <h3
+            id="pub-footer-title"
+            class="text-base sm:text-lg font-bold text-white tracking-wide"
+          >
+          Sekretariat Yayasan
+          </h3>
+          <p class="text-xs sm:text-sm text-blue-100/80 leading-relaxed">
+           Jl. Ponpes Mukasyafah Arifin Billah 663
+Karangsari – Weru – Cirebon 45154
+          </p>
+          <div class="pt-2">
+            <!-- Fitur Rahasia: Klik 3 kali pada teks copyright untuk membuka admin.html -->
+            <p
+              id="secret-admin-trigger"
+              class="text-[11px] text-blue-200/60 cursor-pointer select-none hover:text-blue-200 transition"
+              title="Sistem Monitoring Realtime"
+            >
+              &copy; 2026 Yayasan Pendidikan Arifin Billah. Seluruh Hak Cipta
+              Dilindungi.
+            </p>
+          </div>
+        </div>
+        <div
+          class="w-full h-44 sm:h-48 rounded-xl overflow-hidden shadow-lg border border-blue-700/50 bg-blue-950"
+        >
+          <iframe
+            id="pub-map-iframe"
+            width="100%"
+            height="100%"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            src=""
+          ></iframe>
+        </div>
+      </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+      const API_URL =
+        "https://script.google.com/macros/s/AKfycbxB8gI_N_mK502Q-3BJZ5p6HPXx5QXmzinMZ8sduHWMxXkK-nNpgOANrZtLjsrYgwY/exec";
+
+      // Koordinat spesifik Karangsari, Weru, Cirebon
+      const MAP_COORDS =
+        "7FCJ+JVJ, Karangsari, Kec. Weru, Kabupaten Cirebon, Jawa Barat 45154";
+      document.getElementById("pub-map-iframe").src =
+        `https://maps.google.com/maps?q=${encodeURIComponent(MAP_COORDS)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
+
+      // Fitur Rahasia: Klik 3 kali pada teks copyright untuk membuka admin.html
+      let clickCount = 0;
+      const triggerEl = document.getElementById("secret-admin-trigger");
+      if (triggerEl) {
+        triggerEl.addEventListener("click", () => {
+          clickCount++;
+          if (clickCount >= 3) {
+            window.location.href = "admin.html";
+          }
+          setTimeout(() => {
+            clickCount = 0;
+          }, 1000);
+        });
+      }
+
+      // Live Clock & Date Function
+      function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, "0");
+        const minutes = String(now.getMinutes()).padStart(2, "0");
+        const seconds = String(now.getSeconds()).padStart(2, "0");
+        const timeString = `${hours}.${minutes}.${seconds}`;
+
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        const dateString = now.toLocaleDateString("id-ID", options);
+
+        const clockEl = document.getElementById("live-clock");
+        const dateEl = document.getElementById("live-date");
+        if (clockEl) clockEl.innerText = timeString;
+        if (dateEl) dateEl.innerText = dateString;
+
+        const clockMobEl = document.getElementById("live-clock-mobile");
+        const dateMobEl = document.getElementById("live-date-mobile");
+        if (clockMobEl) clockMobEl.innerText = timeString;
+        if (dateMobEl)
+          dateMobEl.innerText = now.toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
+          });
+      }
+      setInterval(updateClock, 1000);
+      updateClock();
+
+      // Load data instan saat halaman dibuka, lalu auto-refresh otomatis tiap 5 detik
+      window.addEventListener("DOMContentLoaded", () => {
+        fetchPublicData();
+        setInterval(fetchPublicData, 5000); // Diatur refresh setiap 5 detik
+      });
+
+      async function fetchPublicData() {
+        try {
+          // Menggunakan action 'getAdminData' agar mengambil data lengkap sama seperti admin.html
+          const response = await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify({ action: "getAdminData" }),
+          });
+          const res = await response.json();
+          if (res.status !== "success") return;
+          const data = res.data;
+
+          if (data.settings && data.settings.foundationName) {
+            document.getElementById("pub-foundation-name").innerText =
+              data.settings.foundationName.toUpperCase();
+            document.getElementById("pub-footer-title").innerText =
+              "Lokasi & Sekretariat " + data.settings.foundationName;
+          }
+
+          if (data.settings && data.settings.logoUrl) {
+            const logoContainer = document.getElementById("pub-logo-container");
+            logoContainer.innerHTML = `<img src="${data.settings.logoUrl}" alt="Logo Yayasan" class="w-full h-full object-contain">`;
+          }
+
+          const noEventContainer =
+            document.getElementById("no-event-container");
+          const activeEventContainer = document.getElementById(
+            "active-event-container",
+          );
+          const eventBox = document.getElementById("pub-event-box");
+          const totalGuestsEl = document.getElementById("pub-total-guests");
+          const recentContainer = document.getElementById("pub-recent-guests");
+
+          const isPublished =
+            data.settings &&
+            (data.settings.isPublished === "true" ||
+              data.settings.isPublished === true);
+          const activeEvent = data.activeEvent;
+
+          if (!isPublished || !activeEvent || !activeEvent.name) {
+            noEventContainer.classList.remove("hidden");
+            activeEventContainer.classList.add("hidden");
+          } else {
+            noEventContainer.classList.add("hidden");
+            activeEventContainer.classList.remove("hidden");
+
+            // Format tanggal acara: Hari, Tanggal-Bulan-Tahun
+            let formattedEventDate = "";
+            if (activeEvent.date) {
+              const parsedDate = new Date(activeEvent.date);
+              if (!isNaN(parsedDate)) {
+                const weekday = parsedDate.toLocaleDateString("id-ID", {
+                  weekday: "long",
+                });
+                const d = String(parsedDate.getDate()).padStart(2, "0");
+                const m = String(parsedDate.getMonth() + 1).padStart(2, "0");
+                const y = parsedDate.getFullYear();
+                formattedEventDate = `${weekday}, ${d}-${m}-${y}`;
+              } else {
+                formattedEventDate = activeEvent.date;
+              }
+            }
+
+            eventBox.innerHTML = `
+            <div class="space-y-2">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="text-xs uppercase tracking-wider text-emerald-600 font-bold">Sedang Berlangsung</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900">${activeEvent.name}</h3>
+              <p class="text-xs sm:text-sm text-slate-500">${formattedEventDate}</p>
+            </div>
+          `;
+
+            // Ambil daftar tamu dari data.guests
+            let guestList = Array.isArray(data.guests) ? data.guests : [];
+
+            // Hitung total keseluruhan tamu secara otomatis dari seluruh data tamu
+            const totalKeseluruhan = guestList.reduce(
+              (acc, cur) =>
+                acc +
+                (parseInt(cur.totalCount || cur.jumlah || cur.count) || 0),
+              0,
+            );
+            totalGuestsEl.innerText = totalKeseluruhan;
+
+            if (guestList.length > 0) {
+              // Ambil maksimal 6 data terakhir dan balik urutannya agar data yang paling baru ada di atas
+              const latestGuests = guestList.slice(-6).reverse();
+
+              recentContainer.innerHTML = latestGuests
+                .map((guest) => {
+                  const namaTamu =
+                    guest.leaderName ||
+                    guest.nama ||
+                    guest.name ||
+                    "Tanpa Nama";
+                  const jumlahTamu =
+                    guest.totalCount !== undefined
+                      ? guest.totalCount
+                      : guest.jumlah !== undefined
+                        ? guest.jumlah
+                        : guest.count || 0;
+
+                  return `
+                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/60 flex justify-between items-center gap-3 hover:bg-slate-100/80 transition">
+                  <div class="overflow-hidden">
+                    <div class="font-bold text-slate-800 truncate text-sm sm:text-base">${namaTamu}</div>
+                  </div>
+                  <div class="bg-blue-100 text-blue-700 px-3 py-1 rounded-lg text-xs sm:text-sm font-bold shrink-0">
+                    ${jumlahTamu} Orang
+                  </div>
+                </div>
+              `;
+                })
+                .join("");
+            } else {
+              recentContainer.innerHTML = `
+              <div class="text-center text-slate-400 py-20 flex flex-col items-center justify-center gap-2">
+                <i class="fa-solid fa-user-clock text-3xl text-slate-300"></i>
+                <span class="text-xs">Belum ada data tamu</span>
+              </div>
+            `;
+            }
+          }
+        } catch (err) {
+          console.error("Gagal memuat data publik:", err);
+        }
+      }
+    </script>
+  </body>
+</html>

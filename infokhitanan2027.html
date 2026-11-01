@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peraturan & Ketentuan - Khitanan Massal Tajug Gede 2027</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display for Islamic-Modern Elegance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        emerald: {
+                            850: '#064e3b',
+                            900: '#022c22',
+                        },
+                        gold: {
+                            400: '#facc15',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Fine-Tuning & Geometric Islamic Background Pattern */
+        body {
+            background-color: #f8fafc;
+            background-image: radial-gradient(#059669 0.5px, transparent 0.5px), radial-gradient(#059669 0.5px, #f8fafc 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-opacity: 0.03;
+        }
+
+        /* Subtle Glow Effects */
+        .glow-effect {
+            box-shadow: 0 0 50px -10px rgba(16, 185, 129, 0.15);
+        }
+
+        /* Smooth subtle pulse animation for badge */
+        @keyframes subtlePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(0.98); }
+        }
+        .pulse-badge {
+            animation: subtlePulse 3s infinite ease-in-out;
+        }
+
+        /* Responsive Logo Precision Helper */
+        .logo-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 antialiased min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+
+    <!-- Top Accent Bar -->
+    <div class="w-full h-1.5 bg-gradient-to-r from-emerald-800 via-emerald-600 to-amber-500"></div>
+
+    <!-- Main Container -->
+    <main class="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+        <div class="max-w-3xl w-full mx-auto text-center bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-10 md:p-14 shadow-xl border border-slate-100 glow-effect transition-all duration-300">
+            
+            <!-- HEADER / LOGO SECTION -->
+            <!-- 
+                ============================================================
+                TEMPAT UNTUK GANTI LOGO (ADMIN):
+                - Ubah attribute 'src' di bawah menjadi file Anda (misal: src="logo.jpg" atau src="images/logo-tajug.png")
+                - Kelas Tailwind memastikan logo presisi, proporsional, dan tidak distorsi/gepeng di semua ukuran layar.
+                ============================================================
+            -->
+            <div class="logo-wrapper mb-8">
+                <div class="relative group">
+                    <!-- Glow behind logo -->
+                    <div class="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-amber-500 rounded-full blur opacity-25 group-hover:opacity-40 transition duration-300"></div>
+                    
+                    <!-- Container Logo Presisi -->
+                    <div class="relative w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-full bg-white p-3 shadow-md border border-slate-100 flex items-center justify-center overflow-hidden">
+                        <img 
+                            src="logo yayasan.png" 
+                            alt="Logo Tajug Gede" 
+                            class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+                            onerror="this.onerror=null; this.src='https://placehold.co/300x300/047857/ffffff?text=TAJUG+GEDE';"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- ORGANIZER NAME -->
+            <p class="text-xs sm:text-sm font-semibold tracking-widest text-emerald-700 uppercase mb-3">
+                
+            </p>
+
+            <!-- STATUS BADGE -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-medium mb-6 pulse-badge">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
+                <span>SEGERA TERSEDIA</span>
+            </div>
+
+            <!-- MAIN TITLE -->
+            <h1 class="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 leading-tight mb-4">
+                Peraturan & Ketentuan Acara<br class="hidden sm:inline">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-800 via-emerald-700 to-emerald-900">
+                    Khitanan Massal Tajug Gede 2027
+                </span>
+            </h1>
+
+            <!-- SUBTEXT / INFORMATION MESSAGE -->
+            <p class="text-slate-600 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-8 font-light">
+                Halaman syarat, tata tertib, serta panduan pendaftaran resmi untuk kegiatan Khitanan Massal Tajug Gede 2027 saat ini sedang dalam penyusunan akhir demi memberikan pelayanan terbaik untuk calon peserta.
+            </p>
+
+            <!-- DIVIDER DEKORATIF -->
+            <div class="flex items-center justify-center gap-3 mb-8">
+                <div class="h-[1px] w-12 bg-slate-200"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-emerald-600"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-amber-500 rotate-45"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-emerald-600"></div>
+                <div class="h-[1px] w-12 bg-slate-200"></div>
+            </div>
+
+            <!-- EVENT HIGHLIGHT / INFORMASI PENTING -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-left mb-8">
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-start space-x-3">
+                    <div class="p-2.5 bg-emerald-100 text-emerald-700 rounded-xl">
+                        <i class="fa-regular fa-calendar-check text-lg"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Pelaksanaan</h4>
+                        <p class="text-sm font-bold text-slate-800 mt-0.5">05 Januari 2027</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-start space-x-3">
+                    <div class="p-2.5 bg-emerald-100 text-emerald-700 rounded-xl">
+                        <i class="fa-solid fa-location-dot text-lg"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Lokasi Acara</h4>
+                        <p class="text-sm font-bold text-slate-800 mt-0.5">Yayasan Pendidikan Arifin Billah</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-start space-x-3">
+                    <div class="p-2.5 bg-emerald-100 text-emerald-700 rounded-xl">
+                        <i class="fa-solid fa-shield-heart text-lg"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Layanan</h4>
+                        <p class="text-sm font-bold text-slate-800 mt-0.5">Gratis</p>
+                    </div>
+                </div>
+            </div>
+
+           
+            </div>
+
+        </div>
+    </main>
+
+  <!-- FOOTER -->
+<footer class="w-full py-6 text-center text-xs text-slate-500 border-t border-slate-200/60 bg-white/50 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col items-center justify-center gap-2">
+        <p>&copy; 2027 Yayasan Pendidikan Arifin Billah.</p>
+        <div class="flex items-center justify-center space-x-4 text-slate-600 font-medium">
+            
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

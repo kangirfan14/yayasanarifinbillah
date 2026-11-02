@@ -1,192 +1,743 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id" class="scroll-smooth">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Khitanan Massal & Arak-Arakan Tajug Gede 2027</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            DEFAULT: '#18475F',
-                            dark: '#0F3042',
-                            light: '#235D7C',
-                            accent: '#D4AF37',
-                            bg: '#F8FAFC'
-                        }
-                    },
-                    aspectRatio: {
-                        '16/9': '16 / 9',
-                    }
-                }
-            }
-        }
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                DEFAULT: "#18475F",
+                dark: "#0F3042",
+                light: "#235D7C",
+                accent: "#D4AF37", // Gold Accent
+                bg: "#F8FAFC",
+              },
+            },
+            aspectRatio: {
+              "16/9": "16 / 9",
+            },
+          },
+        },
+      };
     </script>
     <!-- Font Family -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Amiri:wght@700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
-        .arabic-font { font-family: 'Amiri', serif; }
-        .islamic-pattern {
-            background-color: #f8fafc;
-            background-image: radial-gradient(#18475f 0.65px, transparent 0.65px), radial-gradient(#18475f 0.65px, #f8fafc 0.65px);
-            background-size: 26px 26px;
-            background-position: 0 0, 13px 13px;
-            background-opacity: 0.04;
-        }
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
-        ::-webkit-scrollbar-thumb { background: #18475F; border-radius: 4px; }
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      .arabic-font {
+        font-family: "Amiri", serif;
+      }
+      .islamic-pattern {
+        background-color: #f8fafc;
+        background-image:
+          radial-gradient(#18475f 0.65px, transparent 0.65px),
+          radial-gradient(#18475f 0.65px, #f8fafc 0.65px);
+        background-size: 26px 26px;
+        background-position:
+          0 0,
+          13px 13px;
+        background-opacity: 0.04;
+      }
+      /* Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #18475f;
+        border-radius: 4px;
+      }
 
-        /* Scroll Animation Classes */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+      /* Scroll Animation Classes */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
 
-        /* Toast Popup Animation */
-        #toast-notice {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      /* Interactive Click Animation */
+      .btn-interactive:active {
+        transform: scale(0.96);
+      }
+
+      /* Realtime Toast Notification Animation */
+      #toast-notice {
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      /* Animasi Kilau (Shimmer) Sampul Hero */
+      @keyframes heroShimmer {
+        0% {
+          transform: translateX(-150%) skewX(-20deg);
         }
+        30%, 100% {
+          transform: translateX(250%) skewX(-20deg);
+        }
+      }
+      .animate-hero-shimmer {
+        animation: heroShimmer 6s infinite ease-in-out;
+      }
+
+      /* Animasi Getar (Shake Modal) */
+      @keyframes modalShake {
+        0%, 100% { transform: scale(1) translate(0, 0); }
+        10%, 30%, 50%, 70%, 90% { transform: scale(1.02) translate(-6px, 0); }
+        20%, 40%, 60%, 80% { transform: scale(1.02) translate(6px, 0); }
+      }
+      .animate-modal-shake {
+        animation: modalShake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+      }
+
+      /* Screen Shake Effect saat Modal Danger Muncul */
+      @keyframes screenVibrate {
+        0%, 100% { transform: translate(0, 0); }
+        20% { transform: translate(-4px, 4px); }
+        40% { transform: translate(4px, -4px); }
+        60% { transform: translate(-3px, -2px); }
+        80% { transform: translate(3px, 2px); }
+      }
+      .vibrate-screen {
+        animation: screenVibrate 0.4s ease-in-out;
+      }
     </style>
-</head>
-<body class="bg-slate-50 text-slate-800 islamic-pattern antialiased min-h-screen flex flex-col justify-between overflow-x-hidden">
-
+  </head>
+  <body
+    class="bg-slate-50 text-slate-800 islamic-pattern antialiased min-h-screen flex flex-col justify-between overflow-x-hidden"
+  >
     <!-- ========================================== -->
-    <!-- REALTIME TOAST NOTIFICATION (BELUM TERSEDIA)-->
+    <!-- REALTIME TOAST NOTIFICATION (TANPA TOMBOL) -->
     <!-- ========================================== -->
     <div id="toast-notice" class="fixed top-24 left-1/2 transform -translate-x-1/2 z-50 opacity-0 pointer-events-none translate-y-[-20px]">
-        <div class="bg-slate-900/90 backdrop-blur-md text-white text-xs font-semibold px-6 py-3 rounded-full shadow-2xl border border-slate-700/60 flex items-center space-x-2">
-            <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
-            <span>Fitur Belum Tersedia (Sedang Diintegrasi Panitia)</span>
-        </div>
+      <div id="toast-msg" class="bg-slate-900/95 backdrop-blur-md text-white text-xs font-semibold px-6 py-3 rounded-full shadow-2xl border border-slate-700/60 flex items-center space-x-2">
+        <span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+        <span id="toast-text">Pemberitahuan Sistem</span>
+      </div>
     </div>
 
     <!-- ========================================== -->
     <!-- NAVBAR & HEADER                            -->
     <!-- ========================================== -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                
-                <!-- Logo & Brand Title -->
-                <div class="flex items-center space-x-3">
-                    <div class="h-12 w-12 rounded-full border border-slate-200 bg-white shadow-sm flex items-center justify-center overflow-hidden p-0.5">
-                        <img src="logo yayasan.png" alt="Logo Tajug Gede" class="h-full w-full object-contain rounded-full" onError="this.onerror=null; this.src='https://via.placeholder.com/150/18475F/FFFFFF?text=TAJUG+GEDE';">
-                    </div>
-                    <div>
-                        <span class="block text-xs font-semibold tracking-wider text-brand uppercase"></span>
-                        <h1 class="text-base sm:text-lg font-bold text-slate-900 leading-tight">YAYASAN PENDIDIKAN ARIFIN BILLAH</h1>
-                    </div>
-                </div>
-
-                <!-- Desktop Navigation Menu -->
-                <nav class="hidden md:flex items-center space-x-8">
-                    <button onclick="triggerUnavailableToast()" class="text-sm font-semibold text-slate-700 hover:text-brand transition">Peserta Khitanan</button>
-                    <button onclick="triggerUnavailableToast()" class="text-sm font-semibold text-slate-700 hover:text-brand transition">Peserta Arak - Arakan</button>
-                    <button onclick="triggerUnavailableToast()" class="text-sm font-semibold text-slate-700 hover:text-brand transition">Rute Acara</button>
-                </nav>
-
-                <!-- Mobile Hamburger Button -->
-                <div class="flex md:hidden">
-                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-lg text-slate-700 hover:text-brand hover:bg-slate-100 focus:outline-none transition">
-                        <svg id="hamburger-icon" class="h-6 w-6 block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
-                        <svg id="close-icon" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
-                </div>
-
+    <header
+      id="main-header"
+      class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm transition-all duration-300"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <!-- Logo & Brand Title -->
+          <div class="flex items-center space-x-3">
+            <div
+              class="h-12 w-12 rounded-full border border-slate-200 bg-white shadow-sm flex items-center justify-center overflow-hidden p-0.5"
+            >
+              <img
+                src="logo yayasan.png"
+                alt="Logo Tajug Gede"
+                class="h-full w-full object-contain rounded-full"
+                onError="this.onerror=null; this.src='https://via.placeholder.com/150/18475F/FFFFFF?text=TAJUG+GEDE';"
+              />
             </div>
+            <div>
+              <span
+                class="block text-xs font-semibold tracking-wider text-brand uppercase"
+              ></span>
+              <h1
+                class="text-base sm:text-lg font-bold text-slate-900 leading-tight"
+              >
+                YAYASAN PENDIDIKAN ARIFIN BILLAH
+              </h1>
+            </div>
+          </div>
+
+          <!-- Desktop Navigation Menu -->
+          <nav id="desktop-nav" class="hidden md:flex items-center space-x-8">
+            <!-- Dropdown Peserta -->
+            <div class="relative group">
+              <button
+                class="flex items-center space-x-1 text-sm font-semibold text-slate-700 hover:text-brand transition py-2"
+              >
+                <span>Peserta</span>
+                <svg
+                  class="w-4 h-4 text-slate-400 group-hover:text-brand transition"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                class="absolute left-0 mt-1 w-48 rounded-xl bg-white shadow-xl border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-2 z-50"
+              >
+                <div class="py-2">
+                  <a
+                    href="#khitanan-section"
+                    class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand font-medium"
+                    >Khitanan</a
+                  >
+                  <a
+                    href="#arak-arakan-section"
+                    class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand font-medium"
+                    >Arak - Arakan</a
+                  >
+                </div>
+              </div>
+            </div>
+
+            <a
+              href="#rute-section"
+              class="text-sm font-semibold text-slate-700 hover:text-brand transition"
+              >Rute Acara</a
+            >
+          </nav>
+
+          <!-- Mobile Hamburger Button -->
+          <div id="mobile-menu-container" class="flex md:hidden">
+            <button
+              id="mobile-menu-btn"
+              type="button"
+              class="btn-interactive inline-flex items-center justify-center p-2 rounded-lg text-slate-700 hover:text-brand hover:bg-slate-100 focus:outline-none transition"
+            >
+              <svg
+                id="hamburger-icon"
+                class="h-6 w-6 block"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              <svg
+                id="close-icon"
+                class="h-6 w-6 hidden"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
+      </div>
     </header>
 
     <!-- Mobile Slide-over Overlay Backdrop -->
-    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"></div>
+    <div
+      id="mobile-menu-backdrop"
+      class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden"
+    ></div>
 
     <!-- Mobile Slide-over Panel -->
-    <div id="mobile-menu-panel" class="fixed top-20 right-0 w-64 max-w-[80vw] bg-white border-l border-b border-slate-200 shadow-2xl z-40 transform translate-x-full transition-transform duration-300 ease-in-out rounded-bl-2xl md:hidden overflow-hidden">
-        <div class="p-5 space-y-3">
-            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Navigasi</div>
-            <button onclick="triggerUnavailableToast(); closeMobileMenu();" class="w-full text-left block px-3 py-2 text-sm font-medium text-slate-700 hover:text-brand hover:bg-slate-50 rounded-lg transition">Peserta Khitanan</button>
-            <button onclick="triggerUnavailableToast(); closeMobileMenu();" class="w-full text-left block px-3 py-2 text-sm font-medium text-slate-700 hover:text-brand hover:bg-slate-50 rounded-lg transition">Peserta Arak - Arakan</button>
-            <button onclick="triggerUnavailableToast(); closeMobileMenu();" class="w-full text-left block px-3 py-2 text-sm font-medium text-slate-700 hover:text-brand hover:bg-slate-50 rounded-lg transition">Rute Acara</button>
+    <div
+      id="mobile-menu-panel"
+      class="fixed top-20 right-0 w-64 max-w-[80vw] bg-white border-l border-b border-slate-200 shadow-2xl z-40 transform translate-x-full transition-transform duration-300 ease-in-out rounded-bl-2xl md:hidden overflow-hidden"
+    >
+      <div class="p-5 space-y-4">
+        <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">
+          Navigasi Menu
         </div>
+        <div
+          class="space-y-1 bg-slate-50 p-3 rounded-xl border border-slate-100"
+        >
+          <span class="block text-xs font-bold text-brand uppercase mb-1"
+            >Peserta</span
+          >
+          <a
+            href="#khitanan-section"
+            class="mobile-nav-link block px-3 py-2 text-sm font-medium text-slate-700 hover:text-brand hover:bg-white rounded-lg transition"
+            >↳ Khitanan</a
+          >
+          <a
+            href="#arak-arakan-section"
+            class="mobile-nav-link block px-3 py-2 text-sm font-medium text-slate-700 hover:text-brand hover:bg-white rounded-lg transition"
+            >↳ Arak - Arakan</a
+          >
+        </div>
+        <div class="border-t border-slate-100 pt-2">
+          <a
+            href="#rute-section"
+            class="mobile-nav-link block px-3 py-2 text-sm font-semibold text-slate-700 hover:text-brand hover:bg-slate-50 rounded-lg transition"
+            >Rute Acara</a
+          >
+        </div>
+      </div>
     </div>
 
     <!-- MAIN CONTENT -->
     <main class="flex-grow">
-        
+      
+      <!-- DINAMIC CONTAINER UTAMA -->
+      <div id="dynamic-content-wrapper">
+
         <!-- ========================================== -->
-        <!-- BANNER / SAMPUL UTAMA (16:9 PRESISI)       -->
+        <!-- BANNER / SAMPUL UTAMA (FLEKSIBEL 16:9 + KILAU) -->
         <!-- ========================================== -->
-        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4 reveal">
+        <section id="banner-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4 reveal">
             <div class="relative w-full aspect-16/9 rounded-2xl md:rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-900 group">
-                <img src="hero tajug.png" alt="Banner Khitanan Massal Tajug Gede 2027" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out" onError="this.onerror=null; this.src='https://via.placeholder.com/1280x720/18475F/FFFFFF?text=KHITANAN+MASSAL+TAJUG+GEDE+2027';">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-transparent pointer-events-none"></div>
+               <img src="hero tajug.png" alt="Banner Khitanan Massal Tajug Gede 2027" class="w-full h-full object-cover object-center">
+                
+               <!-- Overlay Kilau (Shimmer Light Sweep Animation Halus) -->
+               <div class="absolute inset-0 pointer-events-none overflow-hidden">
+                 <div class="w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-hero-shimmer"></div>
+               </div>
+
+               <div class="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-transparent pointer-events-none"></div>
             </div>
         </section>
 
         <!-- ========================================== -->
         <!-- WAKTU & HITUNG MUNDUR ACARA                -->
         <!-- ========================================== -->
-        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 reveal">
-            <div class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/70 text-center">
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-100 text-brand text-xs font-bold uppercase tracking-wider mb-3">
-                    <svg class="w-4 h-4 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    <span>Jadwal Pelaksanaan</span>
-                </div>
-                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Selasa, 05 Januari 2027</h2>
-                <p class="text-slate-500 text-sm sm:text-base mt-1"></p>
-                <p class="text-xs font-semibold text-slate-400 mt-0.5">Ponpes Mukasyafah Arifin Billah, Karangsari, Weru, Cirebon</p>
-
-                <!-- Countdown Timer -->
-                <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-lg mx-auto mt-6">
-                    <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 shadow-xs">
-                        <span id="cd-days" class="block text-xl sm:text-3xl font-bold text-brand">00</span>
-                        <span class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase">Hari</span>
-                    </div>
-                    <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 shadow-xs">
-                        <span id="cd-hours" class="block text-xl sm:text-3xl font-bold text-brand">00</span>
-                        <span class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase">Jam</span>
-                    </div>
-                    <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 shadow-xs">
-                        <span id="cd-minutes" class="block text-xl sm:text-3xl font-bold text-brand">00</span>
-                        <span class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase">Menit</span>
-                    </div>
-                    <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 shadow-xs">
-                        <span id="cd-seconds" class="block text-xl sm:text-3xl font-bold text-brand">00</span>
-                        <span class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase">Detik</span>
-                    </div>
-                </div>
+        <section id="countdown-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 reveal">
+          <div
+            class="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200/70 text-center"
+          >
+            <div
+              class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-slate-100 text-brand text-xs font-bold uppercase tracking-wider mb-3"
+            >
+              <svg
+                class="w-4 h-4 text-brand"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                ></path>
+              </svg>
+              <span>Jadwal Pelaksanaan</span>
             </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              Selasa, 05 Januari 2027
+            </h2>
+            <p class="text-xs font-semibold text-slate-400 mt-1">
+              Ponpes Mukasyafah Arifin Billah, Karangsari, Weru, Cirebon
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="grid grid-cols-4 gap-2 sm:gap-4 max-w-lg mx-auto mt-6">
+              <div
+                class="bg-slate-50 rounded-xl p-3 border border-slate-100 shadow-xs"
+              >
+                <span
+                  id="cd-days"
+                  class="block text-xl sm:text-3xl font-bold text-brand"
+                  >00</span
+                >
+                <span
+                  class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase"
+                  >Hari</span
+                >
+              </div>
+              <div
+                class="bg-slate-50 rounded-xl p-3 border border-slate-100 shadow-xs"
+              >
+                <span
+                  id="cd-hours"
+                  class="block text-xl sm:text-3xl font-bold text-brand"
+                  >00</span
+                >
+                <span
+                  class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase"
+                  >Jam</span
+                >
+              </div>
+              <div
+                class="bg-slate-50 rounded-xl p-3 border border-slate-100 shadow-xs"
+              >
+                <span
+                  id="cd-minutes"
+                  class="block text-xl sm:text-3xl font-bold text-brand"
+                  >00</span
+                >
+                <span
+                  class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase"
+                  >Menit</span
+                >
+              </div>
+              <div
+                class="bg-slate-50 rounded-xl p-3 border border-slate-100 shadow-xs"
+              >
+                <span
+                  id="cd-seconds"
+                  class="block text-xl sm:text-3xl font-bold text-brand"
+                  >00</span
+                >
+                <span
+                  class="text-[10px] sm:text-xs font-medium text-slate-500 uppercase"
+                  >Detik</span
+                >
+              </div>
+            </div>
+          </div>
         </section>
 
         <!-- ========================================== -->
-        <!-- PLACEHOLDER SEGERA HADIR (PESERTA & RUTE)  -->
+        <!-- SECTION PESERTA KHITANAN                   -->
         <!-- ========================================== -->
-        <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 reveal">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200/70 p-8 sm:p-12 text-center relative overflow-hidden">
-                <div class="w-16 h-16 rounded-full bg-brand/10 text-brand mx-auto flex items-center justify-center mb-4">
-                    <svg class="w-8 h-8 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <section
+          id="khitanan-section"
+          class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 scroll-mt-24 reveal"
+        >
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-slate-200/70 overflow-hidden"
+          >
+            <div
+              class="bg-brand px-6 py-5 text-white flex items-center justify-between"
+            >
+              <div class="flex items-center space-x-3">
+                <h3 class="text-xl sm:text-2xl font-bold">
+                  Peserta Khitanan Massal
+                </h3>
+                <!-- Badge Status Khitanan dengan Pulse Dot -->
+                <span id="badge-status-khitan" class="inline-flex items-center space-x-1.5 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider bg-emerald-500 text-white shadow-sm">
+                  <span id="dot-khitan" class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                  <span id="text-khitan">Dibuka</span>
+                </span>
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-brand-accent"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Kartu Konten dengan Aksen Gambar Presisi (Desktop & Mobile) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-0 items-stretch">
+              <!-- Aksen Gambar Samping -->
+              <div class="md:col-span-4 bg-brand p-4 flex items-center justify-center relative overflow-hidden min-h-[200px] md:min-h-full">
+                <div class="absolute inset-0 bg-brand/20 z-10"></div>
+                <img src="IMG_7285.jpg" alt="Aksen Khitanan" class="absolute inset-0 w-full h-full object-cover rounded-none md:rounded-r-2xl opacity-90">
+              </div>
+
+              <!-- Konten Teks & Tombol -->
+              <div class="md:col-span-8 p-6 sm:p-8 space-y-6">
+                <div>
+                  <h4
+                    class="text-base font-bold text-slate-900 mb-3 flex items-center"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-brand mr-2"></span>
+                    Peraturan & Ketentuan Khitanan
+                  </h4>
+                  <ul
+                    class="space-y-2.5 text-sm text-slate-600 pl-4 list-disc marker:text-brand"
+                  >
+                    <li>
+                      Peserta harus dalam keadaan sehat walafiat serta siap secara fisik dan mental untuk dikhitan.
+                    </li>
+                    <li>
+                      Sertakan Fotocopy Kartu Keluarga (KK) dan menyertakan Nomor Telepon/WhatsApp aktif yang dapat dihubungi.
+                    </li>
+                    <li>
+                     Orang tua atau wali wajib hadir dan mendampingi anak secara langsung selama prosesi khitanan berlangsung.
+                    </li>
+                    <li>
+                      Hadir di lokasi acara tepat waktu sesuai dengan jadwal
+                    </li>
+                    <li>
+                      Wajib menjaga suasana acara tetap kondusif, tertib, dan menjaga kebersihan di area lokasi pelaksanaan.
+                    </li>
+                  </ul>
                 </div>
-                <span class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold uppercase tracking-wider mb-2">Informasi Pendaftaran & Rute</span>
-                <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 mb-2">Halaman Segera Hadir</h3>
-                <p class="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                    Peraturan, ketentuan peserta khitanan, rombongan arak-arakan, serta rute acara <strong>sedang dalam proses integrasi ke panitia</strong>.
+                <div
+                  class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4"
+                >
+                  <div class="text-xs text-slate-500">
+                    *Pendaftaran gratis tanpa dipungut biaya apapun.
+                  </div>
+                  <!-- Tombol Daftar & Benefit Berdampingan di Kiri -->
+                  <div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
+                    <button
+                      type="button"
+                      onclick="openBenefitModal()"
+                      class="btn-interactive inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-semibold transition shadow-xs"
+                    >
+                      <span>Lihat Benefit</span>
+                    </button>
+                    <button
+                      id="btn-daftar-khitan"
+                      class="btn-interactive flex-1 sm:flex-initial inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand hover:bg-brand-dark text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200"
+                    >
+                      <span>Daftar Peserta Khitanan</span>
+                      <svg
+                        class="w-4 h-4 ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION PESERTA ARAK-ARAKAN                -->
+        <!-- ========================================== -->
+        <section
+          id="arak-arakan-section"
+          class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 scroll-mt-24 reveal"
+        >
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-slate-200/70 overflow-hidden"
+          >
+            <div
+              class="bg-slate-900 px-6 py-5 text-white flex items-center justify-between border-b border-slate-800"
+            >
+              <div class="flex items-center space-x-3">
+                <h3 class="text-xl sm:text-2xl font-bold">
+                  Peserta Arak - Arakan
+                </h3>
+                <!-- Badge Status Arak-Arakan dengan Pulse Dot -->
+                <span id="badge-status-arakan" class="inline-flex items-center space-x-1.5 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider bg-emerald-500 text-white shadow-sm">
+                  <span id="dot-arakan" class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+                  <span id="text-arakan">Dibuka</span>
+                </span>
+              </div>
+              <div
+                class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center"
+              >
+                <svg
+                  class="w-6 h-6 text-brand-accent"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Kartu Konten dengan Aksen Gambar Presisi (Desktop & Mobile) -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-0 items-stretch">
+              <!-- Aksen Gambar Samping -->
+              <div class="md:col-span-4 bg-slate-900 p-4 flex items-center justify-center relative overflow-hidden min-h-[200px] md:min-h-full">
+                <div class="absolute inset-0 bg-slate-950/20 z-10"></div>
+                <img src="IMG_8310.jpg" alt="Aksen Arak-Arakan" class="absolute inset-0 w-full h-full object-cover rounded-none md:rounded-r-2xl opacity-90">
+              </div>
+
+              <!-- Konten Teks & Tombol -->
+              <div class="md:col-span-8 p-6 sm:p-8 space-y-6">
+                <div>
+                  <h4
+                    class="text-base font-bold text-slate-900 mb-3 flex items-center"
+                  >
+                    <span class="w-2 h-2 rounded-full bg-slate-900 mr-2"></span>
+                    Peraturan & Ketentuan Arak - Arakan
+                  </h4>
+                  <ul
+                    class="space-y-2.5 text-sm text-slate-600 pl-4 list-disc marker:text-slate-900"
+                  >
+                    <li>
+                      Peserta/Kelompok wajib mendaftar kepada koordinator panitia
+                      sebelum batas waktu yang ditentukan.
+                    </li>
+                    <li>
+                      Dilarang keras membawa benda tajam, minuman keras, atau
+                      barang-barang terlarang lainnya.
+                    </li>
+                    <li>
+                      Wajib menjaga keamanan, ketertiban umum, dan menaati rute
+                      jalan yang telah ditentukan panitia.
+                    </li>
+        
+                    <li>
+                      Mengikuti arahan penuh dari petugas keamanan dan panitia di
+                      sepanjang jalan rute.
+                    </li>
+
+                    <li>
+                     Dilarang keras membuat keributan, provokasi dan merusak fasilitas umum
+                  </ul>
+                </div>
+                <div
+                  class="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4"
+                >
+                  <div class="text-xs text-slate-500">
+                  </div>
+                  <!-- Tombol Yang Dilarang & Tombol Daftar Berdampingan -->
+                  <div class="flex items-center space-x-3 w-full sm:w-auto justify-end">
+                    <button
+                      type="button"
+                      onclick="triggerDangerWarning()"
+                      class="btn-interactive inline-flex items-center justify-center px-5 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs transition shadow-lg shadow-rose-600/30 border border-rose-500 animate-pulse"
+                    >
+                      <span>Peserta Yang Dilarang</span>
+                    </button>
+                    <button
+                      id="btn-daftar-arakan"
+                      class="btn-interactive flex-1 sm:flex-initial inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm shadow-md hover:shadow-lg transition-all duration-200"
+                    >
+                      <span>Daftar Peserta Arak - Arakan</span>
+                      <svg
+                        class="w-4 h-4 ml-2"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        ></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION RUTE ACARA (16:9 & DOWNLOAD)       -->
+        <!-- ========================================== -->
+        <section
+          id="rute-section"
+          class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 scroll-mt-24 reveal"
+        >
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-slate-200/70 p-6 sm:p-8"
+          >
+            <div
+              class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6"
+            >
+              <div>
+                <h3 class="text-xl sm:text-2xl font-bold text-slate-900">
+                  Rute Arak - Arakan
+                </h3>
+                <p class="text-sm text-slate-500 mt-0.5">
+                  Khitanan massal Tajug Gede 2027
                 </p>
+              </div>
+              <button
+                id="btn-download-rute"
+                class="btn-interactive inline-flex items-center justify-center px-5 py-2.5 rounded-xl border border-brand text-brand hover:bg-brand hover:text-white font-semibold text-sm transition duration-200"
+              >
+                <svg
+                  class="w-4 h-4 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                  ></path>
+                </svg>
+                <span>Unduh Rute</span>
+              </button>
             </div>
+
+            <!-- Container Gambar Rute 16:9 -->
+            <div
+              class="w-full aspect-16/9 rounded-xl border border-slate-200 overflow-hidden bg-slate-100 flex items-center justify-center relative shadow-inner"
+            >
+              <img
+                id="img-rute"
+                src="rute-acara.jpg"
+                alt="Peta Rute Acara"
+                class="w-full h-full object-cover hidden"
+                onLoad="this.classList.remove('hidden'); document.getElementById('rute-fallback').classList.add('hidden');"
+              />
+
+              <!-- Fallback ketika gambar rute belum dimasukkan -->
+              <div id="rute-fallback" class="text-center p-6">
+                <div
+                  class="w-14 h-14 mx-auto mb-3 rounded-full bg-slate-200 flex items-center justify-center text-slate-400"
+                >
+                  <svg
+                    class="w-8 h-8"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l5.447 2.724A1 1 0 0021 18.618V7.382a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"
+                    ></path>
+                  </svg>
+                </div>
+                <h4 class="text-base font-bold text-slate-700">
+                  Rute Segera Hadir
+                </h4>
+                <p class="text-xs text-slate-400 max-w-sm mx-auto mt-1">
+                  Rute resmi arak-arakan sedang dalam tahap finalisasi
+                  panitia.
+                </p>
+              </div>
+            </div>
+          </div>
         </section>
+
+      </div> <!-- Akhir dynamic-content-wrapper -->
 
     </main>
 
@@ -194,156 +745,911 @@
     <!-- FOOTER ELEGAN DENGAN LENGKUNGAN ATAS       -->
     <!-- ========================================== -->
     <footer class="relative bg-slate-900 text-white pt-12 pb-8 mt-12">
-        <!-- Curved Top SVG Shape -->
-        <div class="absolute top-0 left-0 right-0 -translate-y-full overflow-hidden leading-none z-10 pointer-events-none">
-            <svg class="relative block w-full h-8 sm:h-12 text-slate-900" viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0 C300,90 900,90 1200,0 L1200,120 L0,120 Z" fill="currentColor"></path>
-            </svg>
-        </div>
+      <!-- Curved Top SVG Shape -->
+      <div
+        class="absolute top-0 left-0 right-0 -translate-y-full overflow-hidden leading-none z-10 pointer-events-none"
+      >
+        <svg
+          class="relative block w-full h-8 sm:h-12 text-slate-900"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0 C300,90 900,90 1200,0 L1200,120 L0,120 Z"
+            fill="currentColor"
+          ></path>
+        </svg>
+      </div>
 
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-10 pb-10 border-b border-slate-800">
-                
-                <!-- Info Yayasan & Sekretariat -->
-                <div class="space-y-4">
-                    <div>
-                        <span class="text-xs font-bold tracking-widest text-brand-accent uppercase"></span>
-                        <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">YAYASAN PENDIDIKAN ARIFIN BILLAH</h3>
-                        <p class="text-sm text-slate-400 mt-2 leading-relaxed">
-                            Ponpes Mukasyafah Arifin Billah, Desa Karangsari, Kecamatan Weru, Kabupaten Cirebon, Jawa Barat.
-                        </p>
-                    </div>
-
-                    <div class="pt-2">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Didukung Oleh :</h4>
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700/60">
-                                @karangsari.culture
-                            </span>
-                            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700/60">
-                                @krs.info_id
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Google Maps Embed (Koordinat Tajug Gede) -->
-                <div class="w-full">
-                    <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3"></h4>
-                    <div class="w-full h-52 rounded-xl overflow-hidden border border-slate-800 shadow-md bg-slate-800">
-                        <iframe 
-                            id="google-maps-iframe"
-                            class="w-full h-full border-0" 
-                            src="https://maps.google.com/maps?q=-6.7283955231581425,108.48212228540349&z=17&output=embed" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start mb-10 pb-10 border-b border-slate-800"
+        >
+          <!-- Info Yayasan & Sekretariat -->
+          <div class="space-y-4">
+            <div>
+              <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-1">
+                YAYASAN PENDIDIKAN ARIFIN BILLAH
+              </h3>
+              <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                Ponpes Mukasyafah Arifin Billah, Desa Karangsari, Kecamatan
+                Weru, Kabupaten Cirebon, Jawa Barat.
+              </p>
             </div>
 
-            <!-- Copyright Center -->
-            <div class="text-center text-xs text-slate-500 font-medium">
-                <p>&copy; 2026 YAYASAN PENDIDIKAN ARIFIN BILLAH.</p>
+            <div class="pt-2">
+              <h4
+                class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2"
+              >
+                Didukung Oleh:
+              </h4>
+              <div class="flex flex-wrap items-center gap-2">
+                <span
+                  class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700/60"
+                >
+                  @karangsari.culture
+                </span>
+                <span
+                  class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700/60"
+                >
+                  @krs.info_id
+                </span>
+              </div>
             </div>
+          </div>
+
+          <!-- Google Maps Embed -->
+          <div class="w-full">
+            <h4
+              class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3"
+            >
+            </h4>
+            <div
+              class="w-full h-52 rounded-xl overflow-hidden border border-slate-800 shadow-md bg-slate-800"
+            >
+              <iframe 
+                id="google-maps-iframe"
+                class="w-full h-full border-0" 
+                src="https://maps.google.com/maps?q=-6.7283955231581425,108.48212228540349&z=17&output=embed" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </div>
+          </div>
         </div>
+
+        <!-- Copyright Center -->
+        <div class="text-center text-xs text-slate-500 font-medium">
+          <p>&copy; 2026 Yayasan Pendidikan Arifin Billah.</p>
+        </div>
+      </div>
     </footer>
+
+    <!-- ========================================== -->
+    <!-- MODAL POP UP YANG DILARANG (WARNING KERAS)  -->
+    <!-- ========================================== -->
+    <div
+      id="modal-dilarang"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300"
+    >
+      <div
+        id="modal-dilarang-card"
+        class="bg-rose-950/95 border-2 border-rose-500 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl text-white transform scale-95 transition-transform duration-300 overflow-hidden relative"
+      >
+        <!-- Background Glowing Hazard Light -->
+        <div class="absolute -top-10 -right-10 w-40 h-40 bg-rose-600/30 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="flex items-center justify-between pb-4 border-b border-rose-800/80">
+          <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-full bg-rose-600 text-white flex items-center justify-center font-extrabold shadow-lg animate-bounce">
+              ⚠️
+            </div>
+            <div>
+              <h3 class="text-lg font-extrabold text-white tracking-wide uppercase">PERINGATAN!!!</h3>
+              <p class="text-xs text-rose-300">Peserta Yang Dilarang</p>
+            </div>
+          </div>
+          <button
+            onclick="closeModal('modal-dilarang')"
+            class="btn-interactive text-rose-300 hover:text-white p-1 rounded-full hover:bg-rose-900/50 transition"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+
+        <div class="py-5 space-y-3.5 max-h-[60vh] overflow-y-auto pr-1 text-xs text-rose-100">
+          <div class="p-3.5 rounded-2xl bg-rose-900/60 border border-rose-700/80 space-y-1">
+            <h4 class="font-extrabold text-rose-200 text-sm flex items-center">
+              🚫 Si kaki panjang / Jangkungan
+            </h4>
+            <p class="text-slate-300 leading-relaxed">
+             
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-rose-900/60 border border-rose-700/80 space-y-1">
+            <h4 class="font-extrabold text-rose-200 text-sm flex items-center">
+              🚫 Pengamen sebagai contoh Angklung dan sejenisnya (bersifat minta - minta)
+            </h4>
+            <p class="text-slate-300 leading-relaxed">
+              
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-rose-900/60 border border-rose-700/80 space-y-1">
+            <h4 class="font-extrabold text-rose-200 text-sm flex items-center">
+              🚫 Manusia silver / hitam / sejenisnya
+            </h4>
+            <p class="text-slate-300 leading-relaxed">
+             
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-rose-900/60 border border-rose-700/80 space-y-1">
+            <h4 class="font-extrabold text-rose-200 text-sm flex items-center">
+              🚫 Petasan jenis apapun yang menimbulkan bunyi tidak nyaman
+            </h4>
+            <p class="text-slate-300 leading-relaxed">
+             
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-2xl bg-rose-900/60 border border-rose-700/80 space-y-1">
+            <h4 class="font-extrabold text-rose-200 text-sm flex items-center">
+              🚫 Kuda
+            </h4>
+            <p class="text-slate-300 leading-relaxed">
+             
+            </p>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-rose-800/80 text-center">
+          <button
+            onclick="closeModal('modal-dilarang')"
+            class="btn-interactive w-full py-3 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs transition shadow-lg shadow-rose-900/50 uppercase tracking-wider"
+          >
+            Saya Mengerti & Siap Mematuhi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL BENEFIT PESERTA KHITAN               -->
+    <!-- ========================================== -->
+    <div
+      id="modal-benefit"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 transform scale-95 transition-transform duration-300"
+      >
+        <div class="flex items-center justify-between mb-6 pb-3 border-b border-slate-100">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Benefit Peserta Khitanan</h3>
+            <p class="text-xs text-slate-500">*Bagi peserta terdaftar</p>
+          </div>
+          <button
+            onclick="closeBenefitModal()"
+            class="btn-interactive text-slate-400 hover:text-slate-600 p-1 rounded-full hover:bg-slate-100 transition"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+
+        <!-- Wadah Poin Benefit (Mudah Ditambah/Diubah Oleh Admin) -->
+        <div id="benefit-list-container" class="space-y-3.5 max-h-[60vh] overflow-y-auto pr-1">
+          <div class="flex items-start space-x-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold mt-0.5">✓</div>
+            <div>
+              <h4 class="text-xs font-bold text-slate-900">Gratis Biaya Khitan (100% Free)</h4>
+              <p class="text-[11px] text-slate-600">Pelayanan medis profesional tanpa dipungut biaya apapun.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold mt-0.5">✓</div>
+            <div>
+              <h4 class="text-xs font-bold text-slate-900">Pakaian seragam khitan & Sarung</h4>
+              <p class="text-[11px] text-slate-600">Mendapatkan setelan seragam khitan.</p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold mt-0.5">✓</div>
+            <div>
+              <h4 class="text-xs font-bold text-slate-900">Uang Santunan</h4>
+              <p class="text-[11px] text-slate-600"></p>
+            </div>
+          </div>
+          <div class="flex items-start space-x-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-xs font-bold mt-0.5">✓</div>
+            <div>
+              <h4 class="text-xs font-bold text-slate-900">Ayam bela</h4>
+              <p class="text-[11px] text-slate-600">Di bawa pulang masing - masing peserta.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center">
+          <button
+            onclick="closeBenefitModal()"
+            class="btn-interactive w-full py-3 rounded-xl bg-brand text-white font-bold text-xs hover:bg-brand-dark transition shadow-md"
+          >
+            Tutup Informasi
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL POP-UP KONTAK PANITIA WA             -->
+    <!-- ========================================== -->
+    <div
+      id="modal-panitia"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 transform scale-95 transition-transform duration-300"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900">
+            Hubungi Panitia Pelaksana
+          </h3>
+          <button
+            onclick="closeModal('modal-panitia')"
+            class="btn-interactive text-slate-400 hover:text-slate-600 p-1"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </div>
+        <p class="text-xs text-slate-500 mb-4">
+          Link Pendaftaran Belum Tersedia, Hubungi Panitia Dibawah:
+        </p>
+
+        <div
+          id="container-kontak-panitia"
+          class="space-y-2.5 max-h-60 overflow-y-auto pr-1"
+        >
+          <!-- Diisi via JavaScript -->
+        </div>
+
+        <div class="mt-6 text-center">
+          <button
+            onclick="closeModal('modal-panitia')"
+            class="btn-interactive w-full py-2.5 rounded-xl bg-slate-100 text-slate-700 font-semibold text-xs hover:bg-slate-200 transition"
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL PERINGATAN (ARAK-ARAKAN)             -->
+    <!-- ========================================== -->
+    <div
+      id="modal-peringatan"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 text-center transform scale-95 transition-transform duration-300"
+      >
+        <div
+          class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 mx-auto flex items-center justify-center mb-4"
+        >
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            ></path>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-slate-900 mb-2">
+          Peringatan Penting!
+        </h3>
+        <p class="text-xs text-slate-600 leading-relaxed mb-6">
+          Seluruh peserta Arak-Arakan
+          <strong>WAJIB MEMATUHI & MENAATI</strong> semua peraturan yang telah
+          ditentukan oleh panitia demi menjaga ketertiban bersama.
+        </p>
+        <div class="flex space-x-3">
+          <button
+            onclick="closeModal('modal-peringatan')"
+            class="btn-interactive flex-1 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-xs font-semibold hover:bg-slate-50"
+          >
+            Batal
+          </button>
+          <button
+            id="btn-lanjut-arakan"
+            class="btn-interactive flex-1 py-2.5 rounded-xl bg-slate-900 text-white text-xs font-semibold hover:bg-slate-800"
+          >
+            Saya Setuju
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MODAL LOADING / INFO INTERAKTIF            -->
+    <!-- ========================================== -->
+    <div
+      id="modal-info"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 text-center transform scale-95 transition-transform duration-300"
+      >
+        <div
+          id="modal-info-icon"
+          class="w-12 h-12 rounded-full bg-brand/10 text-brand mx-auto flex items-center justify-center mb-4"
+        >
+          <svg
+            id="info-spinner"
+            class="w-6 h-6 animate-spin"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        </div>
+        <h3
+          id="modal-info-title"
+          class="text-base font-bold text-slate-900 mb-2"
+        >
+          Memeriksa Sistem...
+        </h3>
+        <p
+          id="modal-info-desc"
+          class="text-xs text-slate-600 leading-relaxed mb-6"
+        >
+          Mohon tunggu sebentar, sistem sedang memuat tautan pendaftaran.
+        </p>
+        <button
+          id="modal-info-close"
+          onclick="closeModal('modal-info')"
+          class="btn-interactive w-full py-2.5 rounded-xl bg-brand text-white text-xs font-semibold hover:bg-brand-dark hidden"
+        >
+          Mengerti
+        </button>
+      </div>
+    </div>
 
     <!-- ========================================== -->
     <!-- JAVASCRIPT LOGIC                           -->
     <!-- ========================================== -->
     <script>
-        // --- KONFIGURASI TANGGAL ---
-        const TARGET_DATE = "2027-01-05T07:00:00";
+      // --- KONFIGURASI ADMIN ---
+      const CONFIG = {
+        // Status Pendaftaran ("dibuka" atau "terpenuhi")
+        khitanStatus: "dibuka", // Ubah jadi "terpenuhi" untuk menutup pendaftaran khitan
+        arakanStatus: "dibuka", // Ubah jadi "terpenuhi" untuk menutup pendaftaran arak-arakan
 
-        // --- SCROLL REVEAL ANIMATION ---
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+        // URL Google Form Khitanan (Kosongkan "" jika belum ada)
+        gformUrl: "",
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        // Link Google Drive Dokumentasi Acara (Kosongkan "" jika belum ada)
+        driveDocUrl: "",
 
-        // --- HAMBURGER MENU CONTROL ---
-        const btnMenu = document.getElementById('mobile-menu-btn');
-        const iconHamburger = document.getElementById('hamburger-icon');
-        const iconClose = document.getElementById('close-icon');
-        const panelMenu = document.getElementById('mobile-menu-panel');
-        const backdropMenu = document.getElementById('mobile-menu-backdrop');
+       // Daftar Kontak Khusus Panitia Khitanan
+panitiaKhitanList: [
+  { nama: "Pak Nono", no: "6285224113642" },
+  { nama: "Rw Yayun", no: "6281222106567" },
+   { nama: "Ibu Tarinah", no: "6282240495259" },
+    { nama: "Ibu Cimi", no: "6281222567845" }
+],
 
-        function openMobileMenu() {
-            panelMenu.classList.remove('translate-x-full');
-            backdropMenu.classList.remove('opacity-0', 'pointer-events-none');
-            iconHamburger.classList.add('hidden');
-            iconHamburger.classList.remove('block');
-            iconClose.classList.add('block');
-            iconClose.classList.remove('hidden');
+// Daftar Kontak Khusus Panitia Arak-Arakan
+panitiaArakanList: [
+  { nama: "Pak Kamto", no: "6285321177575"},
+ 
+],
+
+        // Path File Download Rute
+        ruteDownloadUrl: "",
+
+        // Tanggal Acara Mulai (YYYY-MM-DDTHH:mm:ss)
+        targetDate: "2027-01-05T07:07:00",
+
+        // Tanggal Acara Selesai (Diatur admin tanpa asumsi)
+        endDate: "2027-01-05T12:59:00"
+      };
+
+      // --- INISIALISASI STATUS & UI ---
+      document.addEventListener("DOMContentLoaded", () => {
+        applyStatusConfig();
+      });
+
+      function applyStatusConfig() {
+        // Status Khitanan
+        const badgeKhitan = document.getElementById("badge-status-khitan");
+        const dotKhitan = document.getElementById("dot-khitan");
+        const textKhitan = document.getElementById("text-khitan");
+        const btnKhitan = document.getElementById("btn-daftar-khitan");
+
+        if (CONFIG.khitanStatus.toLowerCase() === "terpenuhi") {
+          textKhitan.innerText = "Terpenuhi";
+          badgeKhitan.className = "inline-flex items-center space-x-1.5 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider bg-rose-600 text-white shadow-sm";
+          dotKhitan.className = "w-2 h-2 rounded-full bg-white animate-pulse";
+          if (btnKhitan) btnKhitan.classList.add("opacity-60", "cursor-not-allowed");
+        } else {
+          textKhitan.innerText = "Dibuka";
+          badgeKhitan.className = "inline-flex items-center space-x-1.5 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider bg-emerald-500 text-white shadow-sm";
+          dotKhitan.className = "w-2 h-2 rounded-full bg-white animate-pulse";
+          if (btnKhitan) btnKhitan.classList.remove("opacity-60", "cursor-not-allowed");
         }
 
-        function closeMobileMenu() {
-            panelMenu.classList.add('translate-x-full');
-            backdropMenu.classList.add('opacity-0', 'pointer-events-none');
-            iconHamburger.classList.add('block');
-            iconHamburger.classList.remove('hidden');
-            iconClose.classList.add('hidden');
-            iconClose.classList.remove('block');
-        }
+        // Status Arak-Arakan
+        const badgeArakan = document.getElementById("badge-status-arakan");
+        const dotArakan = document.getElementById("dot-arakan");
+        const textArakan = document.getElementById("text-arakan");
+        const btnArakan = document.getElementById("btn-daftar-arakan");
 
-        btnMenu.addEventListener('click', () => {
-            const isOpen = !panelMenu.classList.contains('translate-x-full');
-            if (isOpen) closeMobileMenu();
-            else openMobileMenu();
+        if (CONFIG.arakanStatus.toLowerCase() === "terpenuhi") {
+          textArakan.innerText = "Terpenuhi";
+          badgeArakan.className = "inline-flex items-center space-x-1.5 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider bg-rose-600 text-white shadow-sm";
+          dotArakan.className = "w-2 h-2 rounded-full bg-white animate-pulse";
+          if (btnArakan) btnArakan.classList.add("opacity-60", "cursor-not-allowed");
+        } else {
+          textArakan.innerText = "Dibuka";
+          badgeArakan.className = "inline-flex items-center space-x-1.5 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider bg-emerald-500 text-white shadow-sm";
+          dotArakan.className = "w-2 h-2 rounded-full bg-white animate-pulse";
+          if (btnArakan) btnArakan.classList.remove("opacity-60", "cursor-not-allowed");
+        }
+      }
+
+      // --- TOAST NOTIFICATION REALTIME ---
+      let toastTimeout;
+      function showToast(msg) {
+        const toast = document.getElementById("toast-notice");
+        const toastText = document.getElementById("toast-text");
+        toastText.innerText = msg;
+
+        clearTimeout(toastTimeout);
+        toast.classList.remove("opacity-0", "pointer-events-none", "translate-y-[-20px]");
+        toast.classList.add("opacity-100", "translate-y-0");
+
+        toastTimeout = setTimeout(() => {
+          toast.classList.remove("opacity-100", "translate-y-0");
+          toast.classList.add("opacity-0", "pointer-events-none", "translate-y-[-20px]");
+        }, 3000);
+      }
+
+      // --- SCROLL REVEAL ANIMATION ---
+      const observerOptions = { threshold: 0.1 };
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
         });
+      }, observerOptions);
 
-        backdropMenu.addEventListener('click', closeMobileMenu);
+      function initReveal() {
+        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+      }
+      initReveal();
 
-        // --- REALTIME TOAST NOTIFICATION LOGIC ---
-        let toastTimeout;
-        function triggerUnavailableToast() {
-            const toast = document.getElementById('toast-notice');
-            
-            clearTimeout(toastTimeout);
-            toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
-            toast.classList.add('opacity-100', 'translate-y-0');
+      // --- HAMBURGER MENU CONTROL ---
+      const btnMenu = document.getElementById("mobile-menu-btn");
+      const iconHamburger = document.getElementById("hamburger-icon");
+      const iconClose = document.getElementById("close-icon");
+      const panelMenu = document.getElementById("mobile-menu-panel");
+      const backdropMenu = document.getElementById("mobile-menu-backdrop");
+      const navLinks = document.querySelectorAll(".mobile-nav-link");
 
-            // Otomatis menghilang dalam 2.5 detik tanpa perlu tombol tutup
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-[-20px]');
-            }, 2500);
+      function openMobileMenu() {
+        panelMenu.classList.remove("translate-x-full");
+        backdropMenu.classList.remove("opacity-0", "pointer-events-none");
+        iconHamburger.classList.add("hidden");
+        iconHamburger.classList.remove("block");
+        iconClose.classList.add("block");
+        iconClose.classList.remove("hidden");
+      }
+
+      function closeMobileMenu() {
+        panelMenu.classList.add("translate-x-full");
+        backdropMenu.classList.add("opacity-0", "pointer-events-none");
+        iconHamburger.classList.add("block");
+        iconHamburger.classList.remove("hidden");
+        iconClose.classList.add("hidden");
+        iconClose.classList.remove("block");
+      }
+
+      if (btnMenu) {
+        btnMenu.addEventListener("click", () => {
+          const isOpen = !panelMenu.classList.contains("translate-x-full");
+          if (isOpen) closeMobileMenu();
+          else openMobileMenu();
+        });
+      }
+
+      if (backdropMenu) backdropMenu.addEventListener("click", closeMobileMenu);
+      navLinks.forEach((link) => link.addEventListener("click", closeMobileMenu));
+
+      // --- TRIGGER DANGER WARNING WITH SOUND & VIBRATION ---
+      function triggerDangerWarning() {
+        // 1. Getaran Haptic Perangkat (Mobile & Android/iOS API)
+        if (navigator.vibrate) {
+          navigator.vibrate([200, 100, 200, 100, 400]);
         }
 
-        // --- COUNTDOWN TIMER ---
-        function updateCountdown() {
-            const target = new Date(TARGET_DATE).getTime();
-            const now = new Date().getTime();
-            const diff = target - now;
+        // 2. Efek Suara Peringatan Sistem (Web Audio API Synthesizer Emergency Alarm)
+        try {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          if (AudioContext) {
+            const ctx = new AudioContext();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
 
-            if (diff > 0) {
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            osc.type = "sawtooth";
+            osc.frequency.setValueAtTime(880, ctx.currentTime); // Sound pitch high A5
+            osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.3); // Ramp down A4
 
-                document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
-                document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
-                document.getElementById('cd-minutes').innerText = String(minutes).padStart(2, '0');
-                document.getElementById('cd-seconds').innerText = String(seconds).padStart(2, '0');
+            gain.gain.setValueAtTime(0.3, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.start();
+            osc.stop(ctx.currentTime + 0.4);
+          }
+        } catch(e) {
+          console.log("Audio not supported or restricted");
+        }
+
+        // 3. Shake Layar / Screen Vibration Class
+        document.body.classList.add("vibrate-screen");
+        setTimeout(() => document.body.classList.remove("vibrate-screen"), 400);
+
+        // 4. Buka Modal dengan Animasi Shake
+        const modalCard = document.getElementById("modal-dilarang-card");
+        if (modalCard) {
+          modalCard.classList.remove("animate-modal-shake");
+          void modalCard.offsetWidth; // Trigger reflow
+          modalCard.classList.add("animate-modal-shake");
+        }
+        openModal("modal-dilarang");
+      }
+
+      // --- COUNTDOWN TIMER & LOGIKA HARI H / SELESAI ---
+      let eventStateRendered = null;
+
+      function updateCountdown() {
+        const startTarget = new Date(CONFIG.targetDate).getTime();
+        const endTarget = new Date(CONFIG.endDate).getTime();
+        const now = new Date().getTime();
+
+        const wrapper = document.getElementById("dynamic-content-wrapper");
+        const headerNav = document.getElementById("desktop-nav");
+        const mobileMenuBtn = document.getElementById("mobile-menu-container");
+
+        if (now < startTarget) {
+          // SEBELUM ACARA DIMULAI: COUNTDOWN AKTIF
+          const diff = startTarget - now;
+          const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+          const dElem = document.getElementById("cd-days");
+          const hElem = document.getElementById("cd-hours");
+          const mElem = document.getElementById("cd-minutes");
+          const sElem = document.getElementById("cd-seconds");
+
+          if (dElem) dElem.innerText = String(days).padStart(2, "0");
+          if (hElem) hElem.innerText = String(hours).padStart(2, "0");
+          if (mElem) mElem.innerText = String(minutes).padStart(2, "0");
+          if (sElem) sElem.innerText = String(seconds).padStart(2, "0");
+        } else if (now >= startTarget && now <= endTarget) {
+          // ACARA SEDANG BERLANGSUNG
+          if (eventStateRendered !== "ongoing") {
+            eventStateRendered = "ongoing";
+            if (headerNav) headerNav.classList.add("hidden");
+            if (mobileMenuBtn) mobileMenuBtn.classList.add("hidden");
+
+            wrapper.innerHTML = `
+              <!-- BANNER UTAMA TETAP MUNCUL -->
+              <section id="banner-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4 reveal active">
+                  <div class="relative w-full aspect-16/9 rounded-2xl md:rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-900 group">
+                     <img src="hero tajug.png" alt="Banner Khitanan Massal Tajug Gede 2027" class="w-full h-full object-cover object-center">
+                      <div class="absolute inset-0 pointer-events-none overflow-hidden">
+                        <div class="w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-hero-shimmer"></div>
+                      </div>
+                      <div class="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-transparent pointer-events-none"></div>
+                  </div>
+              </section>
+
+              <section class="max-w-4xl mx-auto px-4 py-10 text-center reveal active">
+                <div class="bg-white rounded-3xl p-10 shadow-lg border border-slate-200 space-y-6">
+                  <div class="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-inner animate-pulse">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                  </div>
+                  
+                  <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Acara Sedang Berlangsung</h2>
+                  <p class="text-slate-600 text-sm sm:text-base max-w-lg mx-auto">
+                    Pelaksanaan Khitanan Massal & Arak-Arakan Tajug Gede sedang berlangsung sekarang
+                  </p>
+                </div>
+              </section>
+            `;
+          }
+        } else {
+          // ACARA SUDAH SELESAI
+          if (eventStateRendered !== "finished") {
+            eventStateRendered = "finished";
+            if (headerNav) headerNav.classList.add("hidden");
+            if (mobileMenuBtn) mobileMenuBtn.classList.add("hidden");
+
+            wrapper.innerHTML = `
+              <!-- BANNER UTAMA TETAP MUNCUL -->
+              <section id="banner-section" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4 reveal active">
+                  <div class="relative w-full aspect-16/9 rounded-2xl md:rounded-3xl overflow-hidden shadow-xl border border-slate-200/80 bg-slate-900 group">
+                     <img src="hero tajug.png" alt="Banner Khitanan Massal Tajug Gede 2027" class="w-full h-full object-cover object-center">
+                      <div class="absolute inset-0 pointer-events-none overflow-hidden">
+                        <div class="w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 animate-hero-shimmer"></div>
+                      </div>
+                      <div class="absolute inset-0 bg-gradient-to-t from-slate-950/30 via-transparent to-transparent pointer-events-none"></div>
+                  </div>
+              </section>
+
+              <section class="max-w-4xl mx-auto px-4 py-10 text-center reveal active">
+                <div class="bg-white rounded-3xl p-10 shadow-lg border border-slate-200 space-y-6">
+                  <div class="w-20 h-20 rounded-full bg-brand/10 text-brand mx-auto flex items-center justify-center shadow-inner">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                  </div>
+                 
+                  <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Terima Kasih Atas Partisipasinya</h2>
+                  <p class="text-slate-600 text-sm sm:text-base max-w-lg mx-auto">
+                    Seluruh rangkaian kegiatan Khitanan Massal & Arak-Arakan Tajug Gede telah sukses dilaksanakan. Silakan lihat dokumentasi kegiatan di bawah ini.
+                  </p>
+                  <div class="pt-4">
+                    <button
+                      onclick="handleDokumentasiClick()"
+                      class="btn-interactive inline-flex items-center justify-center px-8 py-4 rounded-2xl bg-brand hover:bg-brand-dark text-white font-bold text-sm shadow-lg transition-all"
+                    >
+                      <span>Lihat Dokumentasi</span>
+                      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                  </div>
+                </div>
+              </section>
+            `;
+          }
+        }
+      }
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+
+      // --- MODAL UTILITIES ---
+      function openModal(id) {
+        const modal = document.getElementById(id);
+        if (!modal) return;
+        modal.classList.remove("opacity-0", "pointer-events-none");
+        modal.children[0].classList.remove("scale-95");
+        modal.children[0].classList.add("scale-100");
+      }
+
+      function closeModal(id) {
+        const modal = document.getElementById(id);
+        if (!modal) return;
+        modal.classList.add("opacity-0", "pointer-events-none");
+        modal.children[0].classList.remove("scale-100");
+        modal.children[0].classList.add("scale-95");
+      }
+
+      function openBenefitModal() {
+        openModal("modal-benefit");
+      }
+
+      function closeBenefitModal() {
+        closeModal("modal-benefit");
+      }
+
+      // --- RENDER KONTAK PANITIA WA (DIPISAH & DIPROTEKSI) ---
+      function renderPanitiaList(kategoriStr) {
+        const container = document.getElementById("container-kontak-panitia");
+        if (!container) return;
+        container.innerHTML = "";
+
+        const autoText = encodeURIComponent(
+          `Assalamualaikum Panitia Khitanan Massal Tajug Gede 2027, saya ingin mendaftar untuk peserta ${kategoriStr}. Mohon info lebih lanjut.`,
+        );
+
+        // Menentukan daftar kontak dengan fallback aman agar tidak undefined
+        let targetList = [];
+        if (kategoriStr && kategoriStr.toLowerCase().includes("khitanan")) {
+          targetList = CONFIG.panitiaKhitanList || CONFIG.panitiaList || [];
+        } else {
+          targetList = CONFIG.panitiaArakanList || CONFIG.panitiaList || [];
+        }
+
+        // Validasi jika list kosong
+        if (!Array.isArray(targetList) || targetList.length === 0) {
+          container.innerHTML = `<p class="text-xs text-slate-500 text-center py-2">Kontak panitia belum tersedia.</p>`;
+          return;
+        }
+
+        targetList.forEach((p) => {
+          const btn = document.createElement("a");
+          btn.href = `https://wa.me/${p.no}?text=${autoText}`;
+          btn.target = "_blank";
+          btn.className =
+            "btn-interactive flex items-center justify-between p-3 rounded-xl border border-slate-200 hover:border-emerald-500 hover:bg-emerald-50/50 transition group";
+          btn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold text-xs">WA</div>
+                        <span class="text-xs font-semibold text-slate-800 group-hover:text-emerald-700">${p.nama}</span>
+                    </div>
+                    <svg class="w-4 h-4 text-slate-400 group-hover:text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                `;
+          container.appendChild(btn);
+        });
+      }
+
+      // --- REGISTRATION LOGIC: KHITANAN ---
+      const btnDaftarKhitan = document.getElementById("btn-daftar-khitan");
+      if (btnDaftarKhitan) {
+        btnDaftarKhitan.addEventListener("click", () => {
+          if (CONFIG.khitanStatus.toLowerCase() === "terpenuhi") {
+            showToast("kuota peserta sudah penuh!");
+            return;
+          }
+
+          const infoTitle = document.getElementById("modal-info-title");
+          const infoDesc = document.getElementById("modal-info-desc");
+          const spinner = document.getElementById("info-spinner");
+          const closeBtn = document.getElementById("modal-info-close");
+
+          spinner.classList.remove("hidden");
+          closeBtn.classList.add("hidden");
+
+          infoTitle.innerText = "Memproses Pendaftaran...";
+          infoDesc.innerText = "Menghubungi panitia...";
+          openModal("modal-info");
+
+          setTimeout(() => {
+            infoDesc.innerText = "Mengambil link pendaftaran...";
+
+            setTimeout(() => {
+              closeModal("modal-info");
+
+              if (CONFIG.gformUrl && CONFIG.gformUrl.trim() !== "") {
+                infoTitle.innerText = "Membuka Link Pendaftaran";
+                infoDesc.innerText = "Mengarahkan ke halaman formulir...";
+                spinner.classList.remove("hidden");
+                openModal("modal-info");
+
+                setTimeout(() => {
+                  window.location.href = CONFIG.gformUrl;
+                }, 1000);
+              } else {
+                showToast("Link pendaftaran belum tersedia");
+                setTimeout(() => {
+                  renderPanitiaList("Khitanan");
+                  openModal("modal-panitia");
+                }, 800);
+              }
+            }, 1200);
+          }, 1200);
+        });
+      }
+
+      // --- REGISTRATION LOGIC: ARAK-ARAKAN ---
+      const btnDaftarArakan = document.getElementById("btn-daftar-arakan");
+      if (btnDaftarArakan) {
+        btnDaftarArakan.addEventListener("click", () => {
+          if (CONFIG.arakanStatus.toLowerCase() === "terpenuhi") {
+            showToast("kuota peserta sudah penuh!");
+            return;
+          }
+          openModal("modal-peringatan");
+        });
+      }
+
+      const btnLanjutArakan = document.getElementById("btn-lanjut-arakan");
+      if (btnLanjutArakan) {
+        btnLanjutArakan.addEventListener("click", () => {
+          closeModal("modal-peringatan");
+          setTimeout(() => {
+            renderPanitiaList("Arak-Arakan");
+            openModal("modal-panitia");
+          }, 250);
+        });
+      }
+
+      // --- DOKUMENTASI LINK LOGIC (PASCA ACARA) ---
+      function handleDokumentasiClick() {
+        const infoTitle = document.getElementById("modal-info-title");
+        const infoDesc = document.getElementById("modal-info-desc");
+        const spinner = document.getElementById("info-spinner");
+        const closeBtn = document.getElementById("modal-info-close");
+
+        spinner.classList.remove("hidden");
+        closeBtn.classList.add("hidden");
+
+        infoTitle.innerText = "Memuat Dokumentasi...";
+        infoDesc.innerText = "Membuka link dokumentasi...";
+        openModal("modal-info");
+
+        setTimeout(() => {
+          infoDesc.innerText = "Menghubungkan...";
+
+          setTimeout(() => {
+            closeModal("modal-info");
+
+            if (CONFIG.driveDocUrl && CONFIG.driveDocUrl.trim() !== "") {
+              infoTitle.innerText = "Berhasil!";
+              infoDesc.innerText = "Otw ke link...";
+              spinner.classList.remove("hidden");
+              openModal("modal-info");
+
+              setTimeout(() => {
+                window.location.href = CONFIG.driveDocUrl;
+              }, 1000);
             } else {
-                document.getElementById('cd-days').innerText = "00";
-                document.getElementById('cd-hours').innerText = "00";
-                document.getElementById('cd-minutes').innerText = "00";
-                document.getElementById('cd-seconds').innerText = "00";
+              showToast("Dokumentasi segera tersedia, harap bersabar dan tunggu!");
             }
-        }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+          }, 1200);
+        }, 1200);
+      }
+
+      // --- RUTE DOWNLOAD LOGIC ---
+      const btnDownloadRute = document.getElementById("btn-download-rute");
+      if (btnDownloadRute) {
+        btnDownloadRute.addEventListener("click", () => {
+          const imgRute = document.getElementById("img-rute");
+          const isImgAvailable = imgRute && !imgRute.classList.contains("hidden");
+
+          if (CONFIG.ruteDownloadUrl && CONFIG.ruteDownloadUrl.trim() !== "") {
+            window.open(CONFIG.ruteDownloadUrl, "_blank");
+          } else if (isImgAvailable) {
+            const a = document.createElement("a");
+            a.href = imgRute.src;
+            a.download = "Rute-Arak-Arakan-Tajug-Gede-2027.jpg";
+            a.click();
+          } else {
+            showToast("Rute segera tersedia");
+          }
+        });
+      }
+
+      // Menentukan daftar kontak berdasarkan kategori pendaftaran secara otomatis
+const targetList = (kategoriStr.toLowerCase().includes("khitanan")) 
+  ? CONFIG.panitiaKhitanList 
+  : CONFIG.panitiaArakanList;
     </script>
-</body>
+  </body>
 </html>
